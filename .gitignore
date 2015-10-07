@@ -12,3 +12,5 @@ pom.xml.asc
 .nrepl-port
 .idea
 *.iml
+resources/public/js
+figwheel_server.log
