@@ -25,6 +25,11 @@
           (reset! data/current-page-cursor #'components/private)
           )
 
+(defroute "/items/:item-id" {:as params}
+          (reset! data/params-cursor params)
+          (reset! data/current-layout-cursor #'layouts/standard)
+          (reset! data/current-page-cursor #'components/item)
+          )
 
 
 ;; nop
