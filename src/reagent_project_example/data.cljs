@@ -3,7 +3,7 @@
             [reagent.ratom :as rv :refer [atom]]))
 
 
-(def app-state (atom {:params         nil
+(def app-state (atom {:url-params         nil
                       :current-layout nil
                       :current-page   nil
                       :items          ["One" "Two" "Three"]
@@ -21,7 +21,7 @@
 (def items-cursor (r/cursor app-state [:items]))
 
 
-(def params-cursor (r/cursor app-state [:params]))
+(def params-cursor (r/cursor app-state [:url-params]))
 
 
 (def history-cursor (r/cursor app-state [:history]))
