@@ -15,26 +15,25 @@
 
 
 (defroute "/public" []
-          (reset! data/current-layout-cursor #'layouts/full-screen)
           (reset! data/current-page-cursor #'components/public)
           )
 
 
 (defroute "/private" []
-          (reset! data/current-layout-cursor #'layouts/compact)
+          ;(reset! data/current-layout-cursor #'layouts/compact)
           (reset! data/current-page-cursor #'components/private)
           )
 
 (defroute "/items/:item-id" {:as params}
           (reset! data/params-cursor params)
-          (reset! data/current-layout-cursor #'layouts/standard)
+          ;(reset! data/current-layout-cursor #'layouts/standard)
           (reset! data/current-page-cursor #'components/item)
           )
 
 
 ;; nop
 (defroute "/" []
-          (reset! data/current-layout-cursor #'layouts/standard)
+          ;(reset! data/current-layout-cursor #'layouts/standard)
           (reset! data/current-page-cursor #'components/home)
           )
 ;; page not found

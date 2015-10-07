@@ -1,7 +1,7 @@
 (ns reagent-project-example.layouts
   (:require-macros [reagent.ratom :refer [reaction]])
   (:require [reagent-project-example.data :as data]
-            [reagent-project-example.components :as components]
+            [reagent-project-example.common-components :as common-components]
             [reagent.core :as reagent :refer [atom]]))
 
 
@@ -10,10 +10,10 @@
     {:reagent-render (let [current-page (reaction @data/current-page-cursor)]
                        (fn []
                          [:div
-                          [components/header]
+                          [common-components/header]
                           (when @current-page
                             [@current-page])
-                          [components/footer]]))}))
+                          [common-components/footer]]))}))
 
 
 (defn full-screen []
@@ -30,7 +30,7 @@
     {:reagent-render (let [current-page (reaction @data/current-page-cursor)]
                        (fn []
                          [:div
-                          [components/compact-header]
+                          [common-components/compact-header]
                           (when @current-page
                             [@current-page])
-                          [components/footer]]))}))
+                          [common-components/footer]]))}))

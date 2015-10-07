@@ -14,11 +14,11 @@
 
 (defn hello-world []
   (reagent/create-class
-    {:reagent-render (let [current-layout (reaction @data/current-layout-cursor)]
+    {:reagent-render (let []
                        (fn []
                          [:div
-                          (when @current-layout
-                            [@current-layout])
+                          (when @data/current-page-cursor
+                            [@data/current-page-cursor])
                           (when @app-state
                             [:p "app-state=" (str @app-state)])]))}))
 
