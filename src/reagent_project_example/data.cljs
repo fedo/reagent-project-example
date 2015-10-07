@@ -3,13 +3,22 @@
             [reagent.ratom :as rv :refer [atom]]))
 
 
-(def app-state (atom {:current-page nil
-                      :items        ["One" "Two" "Three"]
-                      :text         "Text from the app-state!"}))
+(def app-state (atom {:current-layout nil
+                      :current-page   nil
+                      :items          ["One" "Two" "Three"]
+                      :text           "Text from the app-state!"
+                      :history        nil}))
 
 
 
 (def current-page-cursor (r/cursor app-state [:current-page]))
 
 
+(def current-layout-cursor (r/cursor app-state [:current-layout]))
+
+
 (def items-cursor (r/cursor app-state [:items]))
+
+
+(def history-cursor (r/cursor app-state [:history]))
+
