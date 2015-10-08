@@ -1,40 +1,11 @@
 (ns reagent-project-example.components
   (:require-macros [reagent.ratom :refer [reaction]])
-  (:require [reagent-project-example.data :as data]
+  (:require [reagent-project-example.layouts :as layouts]
+            [reagent-project-example.data :as data]
             [reagent.core :as reagent]))
 
 
-(defn compact-header
-  []
-  (reagent/create-class
-    {:reagent-render
-     (fn []
-       [:div {:style {:background-color "#7986CB"}}
-        [:h3 "Reagent + re-frame + secretary"]
-        (into [:h4]
-              (interpose " "
-                         (map (fn [[url title]]
-                                [:a {:href url} title]) [["#/" "Home"]
-                                                         ["#/public" "Public"]
-                                                         ["#/private" "Private"]])))])}))
-
-
-(defn header
-  []
-  (reagent/create-class
-    {:reagent-render
-     (fn []
-       [:div {:style {:background-color "#7986CB"}}
-        [:h1 "Reagent + re-frame + secretary"]
-        (into [:h3]
-              (interpose " "
-                         (map (fn [[url title]]
-                                [:a {:href url} title]) [["#/" "Home"]
-                                                         ["#/public" "Public"]
-                                                         ["#/private" "Private"]])))])}))
-
-
-(defn home
+(defn home-content
   []
   (reagent/create-class
     {:reagent-render
@@ -49,40 +20,55 @@
                                  [:li [:a {:href (str "#/items/" id)} (str item)]]) @items)))]))}))
 
 
-(defn item
+(defn home-page
+  []
+  (reagent/create-class
+    {:reagent-render (fn [] [layouts/standard home-content])}))
+
+
+(defn item-content
   []
   (reagent/create-class
     {:reagent-render
      (let [params (reaction @data/params-cursor)
            items (reaction @data/items-cursor)
            item-index (js/parseInt (get @params :item-id))
-           _ (println item-index) ]
+           _ (println item-index)]
        (fn [] (fn []
                 [:div [:h3 "Item"]
                  (when (and (seq @items) (> item-index -1))
                    (let [item (nth @items item-index)]
                      [:div "item=" item]))])))}))
 
+(defn item-page
+  []
+  (reagent/create-class
+    {:reagent-render (fn [] [layouts/standard item-content])}))
 
-(defn public
+
+(defn public-content
   []
   (reagent/create-class
     {:reagent-render (fn []
                        [:div [:h3 "Item"]
-                        [:div [:a {:href "#/"} "Go to home"]]])}))
+                        [:div [:a {:href "#/"
+                                   } "Go to home"]]])}))
 
 
-(defn private
+(defn public-page
+  []
+  (reagent/create-class
+    {:reagent-render (fn [] [layouts/full-screen public-content])}))
+
+
+(defn private-content
   []
   (reagent/create-class
     {:reagent-render (fn []
                        [:div "Private"])}))
 
 
-(defn footer
+(defn private-page
   []
   (reagent/create-class
-    {:reagent-render (fn []
-                       [:div {:style {:background-color "#C5CAE9"}}
-                        "Footer"])}))
-
+    {:reagent-render (fn [] [layouts/standard private-content])}))

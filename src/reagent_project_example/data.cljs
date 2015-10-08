@@ -15,9 +15,6 @@
 (def current-page-cursor (r/cursor app-state [:current-page]))
 
 
-(def current-layout-cursor (r/cursor app-state [:current-layout]))
-
-
 (def items-cursor (r/cursor app-state [:items]))
 
 

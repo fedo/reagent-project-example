@@ -1,36 +1,29 @@
 (ns reagent-project-example.layouts
   (:require-macros [reagent.ratom :refer [reaction]])
   (:require [reagent-project-example.data :as data]
-            [reagent-project-example.components :as components]
+            [reagent-project-example.common-components :as common-components]
             [reagent.core :as reagent :refer [atom]]))
 
 
-(defn standard []
+(defn standard [content-component]
   (reagent/create-class
-    {:reagent-render (let [current-page (reaction @data/current-page-cursor)]
-                       (fn []
-                         [:div
-                          [components/header]
-                          (when @current-page
-                            [@current-page])
-                          [components/footer]]))}))
+    {:reagent-render (fn []
+                       [:div
+                        [common-components/header]
+                        [content-component]
+                        [common-components/footer]])}))
 
 
-(defn full-screen []
+(defn full-screen [content-component]
   (reagent/create-class
-    {:reagent-render (let [current-page (reaction @data/current-page-cursor)]
-                       (fn []
-                         [:div
-                          (when @current-page
-                            [@current-page])]))}))
+    {:reagent-render (fn []
+                       [content-component])}))
 
 
-(defn compact []
+(defn compact [content-component]
   (reagent/create-class
-    {:reagent-render (let [current-page (reaction @data/current-page-cursor)]
-                       (fn []
-                         [:div
-                          [components/compact-header]
-                          (when @current-page
-                            [@current-page])
-                          [components/footer]]))}))
+    {:reagent-render (fn []
+                       [:div
+                        [common-components/compact-header]
+                        [content-component]
+                        [common-components/footer]])}))
