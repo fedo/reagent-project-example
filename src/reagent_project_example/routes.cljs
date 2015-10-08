@@ -3,7 +3,6 @@
             [goog.history.EventType :as EventType]
             [reagent-project-example.components :as components]
             [reagent-project-example.data :as data]
-            [reagent-project-example.layouts :as layouts]
             [secretary.core :as secretary :refer-macros [defroute]])
   (:import goog.History))
 
@@ -15,26 +14,23 @@
 
 
 (defroute "/public" []
-          (reset! data/current-page-cursor #'components/public)
+          (reset! data/current-page-cursor #'components/public-page)
           )
 
 
 (defroute "/private" []
-          ;(reset! data/current-layout-cursor #'layouts/compact)
-          (reset! data/current-page-cursor #'components/private)
+          (reset! data/current-page-cursor #'components/private-page)
           )
 
 (defroute "/items/:item-id" {:as params}
           (reset! data/params-cursor params)
-          ;(reset! data/current-layout-cursor #'layouts/standard)
-          (reset! data/current-page-cursor #'components/item)
+          (reset! data/current-page-cursor #'components/item-page)
           )
 
 
 ;; nop
 (defroute "/" []
-          ;(reset! data/current-layout-cursor #'layouts/standard)
-          (reset! data/current-page-cursor #'components/home)
+          (reset! data/current-page-cursor #'components/home-page)
           )
 ;; page not found
 (defroute "*" []

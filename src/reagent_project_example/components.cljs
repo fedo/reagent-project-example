@@ -19,22 +19,14 @@
                                  (println "id=" id "item=" item)
                                  [:li [:a {:href (str "#/items/" id)} (str item)]]) @items)))]))}))
 
-(defn home
+
+(defn home-page
   []
-  (reset! data/current-layout-cursor #'layouts/full-screen)
-  (reset! data/current-content-cursor #'home-content)
   (reagent/create-class
-    {:component-will-mount (fn []
-                             (println "mount public component")
-                             )
-     :reagent-render
-                           (let []
-                             (fn [] (fn []
-                                      [:div (when @data/current-layout-cursor
-                                              [@data/current-layout-cursor])])))}))
+    {:reagent-render (fn [] [layouts/standard home-content])}))
 
 
-(defn item
+(defn item-content
   []
   (reagent/create-class
     {:reagent-render
@@ -48,32 +40,35 @@
                    (let [item (nth @items item-index)]
                      [:div "item=" item]))])))}))
 
+(defn item-page
+  []
+  (reagent/create-class
+    {:reagent-render (fn [] [layouts/standard item-content])}))
+
+
 (defn public-content
   []
   (reagent/create-class
-    {:reagent-render       (fn []
-                             [:div [:h3 "Item"]
-                              [:div [:a {:href "#/"
-                                         } "Go to home"]]])}))
+    {:reagent-render (fn []
+                       [:div [:h3 "Item"]
+                        [:div [:a {:href "#/"
+                                   } "Go to home"]]])}))
 
-(defn public
+
+(defn public-page
   []
   (reagent/create-class
-    {:component-will-mount (fn []
-                             (println "mount public component")
-                             (reset! data/current-layout-cursor #'layouts/full-screen)
-                             (reset! data/current-content-cursor #'public-content))
-     :reagent-render
-     (let []
-       (fn [] (fn []
-                [:div (when @data/current-layout-cursor
-                        [@data/current-layout-cursor])])))}))
+    {:reagent-render (fn [] [layouts/full-screen public-content])}))
 
 
-
-
-(defn private
+(defn private-content
   []
   (reagent/create-class
     {:reagent-render (fn []
                        [:div "Private"])}))
+
+
+(defn private-page
+  []
+  (reagent/create-class
+    {:reagent-render (fn [] [layouts/standard private-content])}))

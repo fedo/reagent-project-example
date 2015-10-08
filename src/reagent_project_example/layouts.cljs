@@ -5,32 +5,25 @@
             [reagent.core :as reagent :refer [atom]]))
 
 
-(defn standard []
+(defn standard [content-component]
   (reagent/create-class
-    {:reagent-render (let [current-page (reaction @data/current-page-cursor)]
-                       (fn []
-                         [:div
-                          [common-components/header]
-                          (when @current-page
-                            [@current-page])
-                          [common-components/footer]]))}))
+    {:reagent-render (fn []
+                       [:div
+                        [common-components/header]
+                        [content-component]
+                        [common-components/footer]])}))
 
 
-(defn full-screen []
+(defn full-screen [content-component]
   (reagent/create-class
-    {:reagent-render (let [current-page (reaction @data/current-page-cursor)]
-                       (fn []
-                         [:div
-                          (when @current-page
-                            [@current-page])]))}))
+    {:reagent-render (fn []
+                       [content-component])}))
 
 
-(defn compact []
+(defn compact [content-component]
   (reagent/create-class
-    {:reagent-render (let [current-page (reaction @data/current-page-cursor)]
-                       (fn []
-                         [:div
-                          [common-components/compact-header]
-                          (when @current-page
-                            [@current-page])
-                          [common-components/footer]]))}))
+    {:reagent-render (fn []
+                       [:div
+                        [common-components/compact-header]
+                        [content-component]
+                        [common-components/footer]])}))
